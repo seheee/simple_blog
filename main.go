@@ -34,11 +34,14 @@ func main() {
 
 	e := echo.New() // echo 객체 생성
 	// 미들웨어 등록
+	// 미들웨어 -> 루트레벨, 그룹레벨, 라우트레벨
+	// 루트레벨 미들웨어 중 라우트이전 미들웨어는 echo.Pre메소드로, 라우트이후 미들웨어는 echo.Use로 설정
+	// 그룹레벨 미들웨어는 특정 주소 하위패스에만 미들웨어로 추가로 적용하는 것
 	e.Use(ContextDB(db))        // db에 접근하기 위해 따로 구현한 미들웨어
 	e.Use(middleware.Logger())  // echo에서 지원해주는 것
 	e.Use(middleware.Recover()) // echo에서 지원해주는 것
 
-	// 구조체 생성하고 Init
+	// 구조체 생성하고 Init (핸들러 등록)
 	controllers.PostController{}.Init(e.Group("/posts"))                // post기능 핸들러 등록
 	controllers.CommentController{}.Init(e.Group("/posts/:id/comment")) // comment기능 핸들러 등록
 
