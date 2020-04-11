@@ -16,7 +16,7 @@ import (
 
 const (
 	driver  = "mysql"
-	connect = "root:sehee@tcp(172.16.11.203:3306)/test_db?charset=utf8"
+	connect = "root:sehee@/test_db?charset=utf8"
 	//driver  = "sqlite3"
 	//connect = "./blog.db"
 )
